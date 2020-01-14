@@ -1,4 +1,4 @@
-package tictactoebackend.structures;
+package com.scoutzknifez.tictactoebackend.structures;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

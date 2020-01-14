@@ -1,15 +1,14 @@
-package tictactoebackend.controllers;
+package com.scoutzknifez.tictactoebackend.controllers;
 
-import lombok.Data;
+import com.scoutzknifez.tictactoebackend.structures.SingletonWrapper;
+import com.scoutzknifez.tictactoebackend.utility.Constants;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import tictactoebackend.datastore.Lobby;
-import tictactoebackend.structures.IPAddress;
-import tictactoebackend.structures.LobbyPacket;
-import tictactoebackend.structures.Player;
-import tictactoebackend.structures.SingletonWrapper;
-import tictactoebackend.utility.Constants;
+import com.scoutzknifez.tictactoebackend.datastore.Lobby;
+import com.scoutzknifez.tictactoebackend.structures.IPAddress;
+import com.scoutzknifez.tictactoebackend.structures.LobbyPacket;
+import com.scoutzknifez.tictactoebackend.structures.Player;
 
 import javax.servlet.http.HttpServletRequest;
 

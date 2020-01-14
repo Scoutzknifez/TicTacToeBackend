@@ -1,7 +1,7 @@
-package tictactoebackend.datastore;
+package com.scoutzknifez.tictactoebackend.datastore;
 
-import tictactoebackend.structures.LobbyPacket;
-import tictactoebackend.structures.Player;
+import com.scoutzknifez.tictactoebackend.structures.LobbyPacket;
+import com.scoutzknifez.tictactoebackend.structures.Player;
 
 import java.util.ArrayList;
 import java.util.List;

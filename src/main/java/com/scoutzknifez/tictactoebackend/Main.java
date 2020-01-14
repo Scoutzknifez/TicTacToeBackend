@@ -1,5 +1,6 @@
-package tictactoebackend;
+package com.scoutzknifez.tictactoebackend;
 
+import com.scoutzknifez.tictactoebackend.gamelogic.GameServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,5 +11,7 @@ public class Main {
         System.out.println("<==========[Starting API Server]==========>");
 
         SpringApplication.run(Main.class, args);
+
+        GameServer gameServer = new GameServer(null, null);
     }
 }
