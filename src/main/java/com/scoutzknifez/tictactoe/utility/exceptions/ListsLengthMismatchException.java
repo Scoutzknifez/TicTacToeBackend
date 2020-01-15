@@ -1,4 +1,4 @@
-package com.scoutzknifez.tictactoebackend.utility.exceptions;
+package com.scoutzknifez.tictactoe.utility.exceptions;
 
 import java.util.Collection;
 

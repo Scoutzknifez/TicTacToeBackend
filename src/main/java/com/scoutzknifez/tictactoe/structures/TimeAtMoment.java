@@ -1,6 +1,6 @@
-package com.scoutzknifez.tictactoebackend.structures;
+package com.scoutzknifez.tictactoe.structures;
 
-import com.scoutzknifez.tictactoebackend.utility.Utils;
+import com.scoutzknifez.tictactoe.utility.Utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

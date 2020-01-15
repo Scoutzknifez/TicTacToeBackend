@@ -1,4 +1,4 @@
-package com.scoutzknifez.tictactoebackend.utility;
+package com.scoutzknifez.tictactoe.utility;
 
 public class Constants {
     public static final String API_HEADER = "/API/";

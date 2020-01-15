@@ -23,8 +23,6 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation 'org.springframework.boot:spring-boot-starter'
 
-    // io.netty
-    implementation 'io.netty:netty-all'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'

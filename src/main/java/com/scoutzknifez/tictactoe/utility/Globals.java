@@ -1,4 +1,4 @@
-package com.scoutzknifez.tictactoebackend.utility;
+package com.scoutzknifez.tictactoe.utility;
 
 import java.util.Random;
 

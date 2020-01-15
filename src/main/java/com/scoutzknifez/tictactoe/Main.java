@@ -1,6 +1,6 @@
-package com.scoutzknifez.tictactoebackend;
+package com.scoutzknifez.tictactoe;
 
-import com.scoutzknifez.tictactoebackend.gamelogic.GameServer;
+import com.scoutzknifez.tictactoe.gamelogic.GameServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

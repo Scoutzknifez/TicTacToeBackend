@@ -1,7 +1,7 @@
-package com.scoutzknifez.tictactoebackend.utility;
+package com.scoutzknifez.tictactoe.utility;
 
-import com.scoutzknifez.tictactoebackend.structures.TimeAtMoment;
-import com.scoutzknifez.tictactoebackend.utility.exceptions.ListsLengthMismatchException;
+import com.scoutzknifez.tictactoe.structures.TimeAtMoment;
+import com.scoutzknifez.tictactoe.utility.exceptions.ListsLengthMismatchException;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
