@@ -1,7 +1,6 @@
 package com.scoutzknifez.tictactoe.gamelogic;
 
-import com.scoutzknifez.tictactoe.gamelogic.dtos.Sample;
-import com.scoutzknifez.tictactoe.gamelogic.dtos.Value;
+import com.scoutzknifez.tictactoe.gamelogic.dtos.GameState;
 import com.scoutzknifez.tictactoe.utility.Utils;
 import com.scoutzknifez.tictactoe.utility.exceptions.ObjectConstructionException;
 import lombok.Data;
@@ -13,6 +12,7 @@ import java.net.Socket;
 public class ServerConnection extends Thread {
     private GameServer gameServer;
     private Socket socket;
+    private boolean isX;
 
     /**
      * These are used for all forms of input and output on this thread.
@@ -23,10 +23,10 @@ public class ServerConnection extends Thread {
     private OutputStream output;
     private ObjectOutputStream oos;
 
-    public ServerConnection(GameServer gameServer, Socket socket) {
+    public ServerConnection(GameServer gameServer, Socket socket, boolean x) {
         setGameServer(gameServer);
         setSocket(socket);
-
+        setX(x);
         try {
             setOutput(getSocket().getOutputStream());
             setOos(new ObjectOutputStream(getOutput()));
@@ -44,14 +44,14 @@ public class ServerConnection extends Thread {
         while (getGameServer().isAlive() && !getSocket().isClosed()) {
             try {
                 Object object = getOis().readObject();
-                if (object instanceof Sample) {
-                    Sample sample = (Sample) object;
-                    Utils.log(sample);
-
-                    sendOutput(new Value<String>("Okay!"));
+                if (object instanceof GameState) {
+                    GameState gameState = (GameState) object;
+                    if(getGameServer().checkInput(gameState, isX())){
+                        gameState.setXTurn(!gameState.isXTurn());
+                        getGameServer().setGameState(gameState);
+                        getGameServer().setMoving(false);
+                    }
                 }
-
-
             } catch (EOFException e) {
                 Utils.log("The socket closed unexpectedly! %s", e);
                 closeSocket();
@@ -70,12 +70,15 @@ public class ServerConnection extends Thread {
         }
     }
 
-    public void sendOutput(Object object) {
-        try {
-            getOos().writeObject(object);
-            getOos().flush();
-        } catch (Exception e) {
-            Utils.log("Could not send the object (%s) to the client! %s", object, e);
-        }
+    public synchronized void sendOutput(final Object object) {
+        new Thread(() -> {
+            try {
+                getOos().writeObject(object);
+                getOos().flush();
+            } catch (Exception e) {
+                Utils.log("Could not send the object (%s) to the client! %s", object, e);
+            }
+        }).start();
+
     }
 }
