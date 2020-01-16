@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 @Getter
 @Setter
@@ -13,42 +14,41 @@ public class TTTBoard implements Serializable {
     private Pieces[] slots = new Pieces[Constants.BOARD_SIZE];
 
     public TTTBoard() {
-        for (int i = 0; i < slots.length; i++)
-            slots[i] = Pieces.BLANK;
+        Arrays.fill(slots, Pieces.BLANK);
     }
 
     public boolean didWin() {
         // TODO Modular check for wins based off of passed in slot
         // TOP
-        if (slots[0].isEqualTo(slots[1]) && slots[1].isEqualTo(slots[2]))
+        if (slots[0].isNonBlankAndEqualTo(slots[1]) && slots[1].isNonBlankAndEqualTo(slots[2]))
             return true;
 
         // LEFT
-        if (slots[0].isEqualTo(slots[3]) && slots[3].isEqualTo(slots[6]))
+        if (slots[0].isNonBlankAndEqualTo(slots[3]) && slots[3].isNonBlankAndEqualTo(slots[6]))
             return true;
 
         // RIGHT
-        if (slots[2].isEqualTo(slots[5]) && slots[5].isEqualTo(slots[8]))
+        if (slots[2].isNonBlankAndEqualTo(slots[5]) && slots[5].isNonBlankAndEqualTo(slots[8]))
             return true;
 
         // BOTTOM
-        if (slots[6].isEqualTo(slots[7]) && slots[7].isEqualTo(slots[8]))
+        if (slots[6].isNonBlankAndEqualTo(slots[7]) && slots[7].isNonBlankAndEqualTo(slots[8]))
             return true;
 
         // LEFT TO RIGHT CROSS
-        if (slots[0].isEqualTo(slots[4]) && slots[4].isEqualTo(slots[8]))
+        if (slots[0].isNonBlankAndEqualTo(slots[4]) && slots[4].isNonBlankAndEqualTo(slots[8]))
             return true;
 
         // RIGHT TO LEFT CROSS
-        if (slots[2].isEqualTo(slots[4]) && slots[4].isEqualTo(slots[6]))
+        if (slots[2].isNonBlankAndEqualTo(slots[4]) && slots[4].isNonBlankAndEqualTo(slots[6]))
             return true;
 
         // DOWN MIDDLE
-        if (slots[1].isEqualTo(slots[4]) && slots[4].isEqualTo(slots[7]))
+        if (slots[1].isNonBlankAndEqualTo(slots[4]) && slots[4].isNonBlankAndEqualTo(slots[7]))
             return true;
 
         // ACROSS MIDDLE
-        if (slots[3].isEqualTo(slots[4]) && slots[4].isEqualTo(slots[5]))
+        if (slots[3].isNonBlankAndEqualTo(slots[4]) && slots[4].isNonBlankAndEqualTo(slots[5]))
             return true;
 
         return false;

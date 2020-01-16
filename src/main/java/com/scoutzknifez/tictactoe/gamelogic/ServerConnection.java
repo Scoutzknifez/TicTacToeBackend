@@ -1,13 +1,16 @@
 package com.scoutzknifez.tictactoe.gamelogic;
 
 import com.scoutzknifez.tictactoe.gamelogic.dtos.GameState;
+import com.scoutzknifez.tictactoe.gamelogic.dtos.Value;
 import com.scoutzknifez.tictactoe.utility.Utils;
 import com.scoutzknifez.tictactoe.utility.exceptions.ObjectConstructionException;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.*;
 import java.net.Socket;
 
+@EqualsAndHashCode(callSuper=false)
 @Data
 public class ServerConnection extends Thread {
     private GameServer gameServer;
@@ -27,11 +30,14 @@ public class ServerConnection extends Thread {
         setGameServer(gameServer);
         setSocket(socket);
         setX(x);
+
         try {
             setOutput(getSocket().getOutputStream());
             setOos(new ObjectOutputStream(getOutput()));
             setInput(getSocket().getInputStream());
             setOis(new ObjectInputStream(getInput()));
+
+            sendOutput(new Value<>(isX()));
         } catch (Exception e) {
             Utils.log("Could not get the input channels for the socket! %s", e);
             e.printStackTrace();
@@ -50,6 +56,10 @@ public class ServerConnection extends Thread {
                         gameState.setXTurn(!gameState.isXTurn());
                         getGameServer().setGameState(gameState);
                         getGameServer().setMoving(false);
+
+                        sendOutput(new Value<>(true));
+                    } else {
+                        sendOutput(new Value<>(false));
                     }
                 }
             } catch (EOFException e) {

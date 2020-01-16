@@ -23,7 +23,7 @@ public class GameServer {
     private Map<Pieces, ServerConnection> serverConnections = new HashMap<>();
     private boolean isAlive = true;
     private boolean isMoving = true;
-    private GameState gameState;
+    private GameState gameState = new GameState();
 
     private Player xPlayer;
     private Player oPlayer;
@@ -67,7 +67,8 @@ public class GameServer {
     }
 
     private void startGame(){
-        gameState = new GameState();
+        getServerConnections().values().forEach(serverConnection -> serverConnection.sendOutput(gameState));
+
         while (isAlive()){
             while (isMoving){}
 
@@ -93,20 +94,28 @@ public class GameServer {
     }
 
     public boolean checkInput(GameState gs, boolean x){
-        if(x != gs.isXTurn()){
+        // Checks if the player who just went, was the player we are waiting for
+        if(x != gs.isXTurn())
             return false;
-        }
+
         int changedCounter = 0;
-        for(int i = 0; i < Constants.BOARD_SIZE; i++){
-            if(!gs.getBoard().getSlots()[i].isEqualTo(gameState.getBoard().getSlots()[i])){
-                if(!gs.getBoard().getSlots()[i].isEqualTo( x ? Pieces.CROSS: Pieces.CIRCLE))
+        for(int i = 0; i < Constants.BOARD_SIZE; i++) {
+            // Checks each instance of the board where the slot has changed
+            if(!gs.getBoard().getSlots()[i].isEqualTo(gameState.getBoard().getSlots()[i])) {
+                // Checks to make sure that any changes that occurred was the correct player
+                if(!gs.getBoard().getSlots()[i].isEqualTo(x ? Pieces.CROSS: Pieces.CIRCLE)) {
                     return false;
+                }
+
                 changedCounter++;
             }
         }
-        if(changedCounter != 1){
+
+        // If the board change is more than 1 differential, the board is invalid
+        if(changedCounter != 1) {
             return false;
         }
+
         return true;
     }
 }

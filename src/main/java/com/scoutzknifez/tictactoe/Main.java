@@ -12,6 +12,6 @@ public class Main {
 
         SpringApplication.run(Main.class, args);
 
-        GameServer gameServer = new GameServer(null, null);
+        new GameServer(null, null);
     }
 }

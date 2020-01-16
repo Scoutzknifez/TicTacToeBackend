@@ -1,14 +1,11 @@
 package com.scoutzknifez.tictactoe.gamelogic.dtos;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.io.Serializable;
-
 @AllArgsConstructor
 @Getter
-public enum Pieces implements Serializable {
+public enum Pieces {
     BLANK(' '),
     CROSS('X'),
     CIRCLE('O');
@@ -16,6 +13,10 @@ public enum Pieces implements Serializable {
     private char character;
 
     public boolean isEqualTo(Pieces piece) {
+        return this == piece;
+    }
+
+    public boolean isNonBlankAndEqualTo(Pieces piece) {
         return this == piece && piece != BLANK;
     }
 }
